@@ -46,7 +46,15 @@ export const ifCampaignActive = (startDate, endDate) => {
 };
 
 export const getUserName = (userId, users) => {
-  if (!users || !userId || users.length === 0) return "Unknown User";
+  // Check if userId is null, undefined, or 0 (invalid)
+  if (userId === null || userId === undefined || userId === 0) {
+    return "Unknown User";
+  }
+
+  // Check if users array is valid
+  if (!users || !Array.isArray(users) || users.length === 0) {
+    return "Unknown User";
+  }
 
   const user = users.find((user) => user.id === userId);
 

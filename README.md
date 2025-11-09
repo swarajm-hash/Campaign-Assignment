@@ -10,9 +10,11 @@ A React application built with Redux for managing campaigns with filtering and s
 - View list of campaigns with details (Name, User, Dates, Active Status, Budget)
 - Search campaigns by name
 - Filter campaigns by date range
-- Add new campaigns through interactive form
-- Real-time validation
-- Loading states and error handling
+
+## Bonus point features
+- Add new campaigns through interactive form (if user name not given , "Unknown User" will be added)
+- Real-time validation (camapign name cannot be empty , budget cannot be negative , Date validation )
+- Loading states and error handling (Shows "Loading Users..." when fetching users and Error handling in `userSlice.js` extraReducers)
 
 ## Tech Stack
 
