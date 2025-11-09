@@ -76,7 +76,7 @@ const AddCampaignForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Handle start date change - clear end date if new start date is after current end date
+    // Handlinf start date change - clear end date if new start date is after current end date
     if (name === "startDate") {
       if (formData.endDate && new Date(value) > new Date(formData.endDate)) {
         setFormData((prev) => ({
@@ -84,7 +84,7 @@ const AddCampaignForm = () => {
           [name]: value,
           endDate: "",
         }));
-        // Clear end date error if it exists
+        // Clear end date error if it exists and it will throw an error if start date is after end date
         setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors.endDate;
@@ -132,7 +132,6 @@ const AddCampaignForm = () => {
     const validationErrors = {};
     Object.keys(formData).forEach((key) => {
       if (key !== "userName") {
-        // userName is optional, skip validation
         const value = formData[key];
         let error = null;
 
@@ -176,11 +175,8 @@ const AddCampaignForm = () => {
         }
       }
     });
-
-    // Update errors state
     setErrors(validationErrors);
 
-    // Check for errors
     if (Object.keys(validationErrors).length > 0) {
       return;
     }
@@ -198,7 +194,7 @@ const AddCampaignForm = () => {
           (u) => u.name.toLowerCase() === trimmedUserName.toLowerCase()
         );
 
-        // If not found, try partial match (contains)
+      // handling the case for case mis-match or partial match
         if (!user) {
           user = users.find(
             (u) =>
@@ -211,7 +207,6 @@ const AddCampaignForm = () => {
           userId = user.id;
         } else {
           // User name not found in API - auto-generate a new userId > 10
-          // This ensures it shows "Unknown User" but allows custom names
           const currentCampaigns = store.getState().campaigns.campaigns;
           const existingUserIds = new Set(
             currentCampaigns
@@ -219,7 +214,7 @@ const AddCampaignForm = () => {
               .filter((id) => id !== null && id !== undefined && id !== 0)
           );
 
-          // Start from 11 (since API has users 1-10) and find next available
+          // Start from 11 (so that my userId is not undefined)
           let newUserId = 11;
           while (existingUserIds.has(newUserId)) {
             newUserId++;
@@ -228,7 +223,7 @@ const AddCampaignForm = () => {
           userId = newUserId;
         }
       } else {
-        // Users not loaded yet - auto-generate userId
+        //generating userId above 10
         const currentCampaigns = store.getState().campaigns.campaigns;
         const existingUserIds = new Set(
           currentCampaigns

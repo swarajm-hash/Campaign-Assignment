@@ -8,7 +8,6 @@ const DateRange = () => {
 
   const handleStartDateChange = (e) => {
     const startDate = e.target.value;
-    // If new start date is after current end date, clear end date
     if (
       dateRange.endDate &&
       new Date(startDate) > new Date(dateRange.endDate)
@@ -23,14 +22,14 @@ const DateRange = () => {
     const endDate = e.target.value;
     const startDate = dateRange.startDate;
 
-    // Check if start date is not selected
+    // start date should be selected
     if (!startDate) {
       alert("Select start date first");
       e.target.value = "";
       return;
     }
 
-    // Check if end date is before start date
+    // end date should not be before start date
     if (endDate && new Date(endDate) < new Date(startDate)) {
       alert("Select start date first");
       e.target.value = "";

@@ -18,7 +18,7 @@ root.render(
 
 window.AddCampaigns = (campaignsArr) => {
   if (Array.isArray(campaignsArr)) {
-    // Get current campaigns to find the highest id and userId
+    //  finding the highest id and userId
     const currentCampaigns = store.getState().campaigns.campaigns;
 
     // Find highest campaign id
@@ -30,14 +30,14 @@ window.AddCampaigns = (campaignsArr) => {
     }, 0);
 
     // Find highest userId from existing campaigns to avoid overlap
-    // Users API has IDs 1-10, so we want to assign > 10 to show "Unknown User"
+    // Users API has IDs 1-10, so assigning id > 10 to show "Unknown User"
     const highestUserId = currentCampaigns.reduce((max, campaign) => {
       // Only consider valid userIds (not null, undefined, or 0)
       if (campaign.userId && campaign.userId > max) {
         return campaign.userId;
       }
       return max;
-    }, 10); // Start from 10 since users API has IDs 1-10
+    }, 10); 
 
     // Get all existing userIds to check for overlaps
     const existingUserIds = new Set(
@@ -76,7 +76,7 @@ window.AddCampaigns = (campaignsArr) => {
         }
 
         normalized.userId = newUserId;
-        existingUserIds.add(newUserId); // Add to set to avoid overlap in same batch
+        existingUserIds.add(newUserId); 
       }
 
       return normalized;
@@ -93,7 +93,5 @@ window.AddCampaigns = (campaignsArr) => {
   }
 };
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+
 reportWebVitals();
