@@ -12,8 +12,8 @@ A React application built with Redux for managing campaigns with filtering and s
 - Filter campaigns by date range
 
 ## Bonus point features
-- Add new campaigns through interactive form (if user name not given , "Unknown User" will be added)
-- Real-time validation (camapign name cannot be empty , budget cannot be negative , Date validation )
+- Add new campaigns through interactive form (if user name not given and clicked , "Unknown User" will be added)
+- Real-time validation (camapign name cannot be empty (on submit a error will be shown), budget cannot be negative , Date validation )
 - Loading states and error handling (Shows "Loading Users..." when fetching users and Error handling in `userSlice.js` extraReducers)
 
 ## Tech Stack
@@ -22,7 +22,7 @@ A React application built with Redux for managing campaigns with filtering and s
 - Redux Toolkit
 - Axios
 - React DatePicker
-- Tailwind CSS
+- Tailwind CSS(tailwind libraries installed but used normal css since its a simple app )
 
 ## Getting Started
 
@@ -42,8 +42,8 @@ The app will run on http://localhost:3001
 
 ### Run tests
 
-```bash
-npm test
+```bash (make sure you are in Campaign-Assignment\adform-campaigns directory . src files are under "adform-campaigns")
+npm test 
 ```
 
 ### Build for production

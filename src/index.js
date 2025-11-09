@@ -46,13 +46,6 @@ window.AddCampaigns = (campaignsArr) => {
         .filter((id) => id !== null && id !== undefined && id !== 0)
     );
 
-    console.log(`Current highest campaign ID: ${highestId}`);
-    console.log(`Current highest userId: ${highestUserId}`);
-    console.log(
-      `Existing userIds in campaigns:`,
-      Array.from(existingUserIds).sort((a, b) => a - b)
-    );
-
     // Normalize campaigns: auto-assign id and userId if not provided
     const normalizedCampaigns = campaignsArr.map((campaign, index) => {
       const normalized = { ...campaign };
@@ -64,9 +57,6 @@ window.AddCampaigns = (campaignsArr) => {
         campaign.id === null
       ) {
         normalized.id = highestId + 1 + index;
-        console.log(
-          `Campaign "${campaign.name}": id not provided, auto-assigned id: ${normalized.id}`
-        );
       }
 
       // Auto-assign userId if not provided (assign value > 10 to ensure "Unknown User" and no overlap)
@@ -87,25 +77,12 @@ window.AddCampaigns = (campaignsArr) => {
 
         normalized.userId = newUserId;
         existingUserIds.add(newUserId); // Add to set to avoid overlap in same batch
-        console.log(
-          `Campaign "${campaign.name}": userId not provided, auto-assigned userId: ${normalized.userId} (will show "Unknown User", no overlap)`
-        );
-      } else {
-        console.log(
-          `Campaign "${campaign.name}": using provided userId: ${campaign.userId}`
-        );
       }
 
       return normalized;
     });
 
-    console.log("Adding campaigns (normalized):", normalizedCampaigns);
     store.dispatch(addCampaigns(normalizedCampaigns));
-    console.log(
-      `Campaigns added. Total campaigns in store: ${
-        store.getState().campaigns.campaigns.length
-      }`
-    );
     return true;
   } else {
     console.error(
