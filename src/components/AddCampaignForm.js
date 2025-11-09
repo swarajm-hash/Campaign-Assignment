@@ -206,7 +206,7 @@ const AddCampaignForm = () => {
         if (user) {
           userId = user.id;
         } else {
-          // User name not found in API - auto-generate a new userId > 10
+          // searching for user. if not found generating userId > 10
           const currentCampaigns = store.getState().campaigns.campaigns;
           const existingUserIds = new Set(
             currentCampaigns

@@ -53,7 +53,7 @@ const DateRange = () => {
         placeholder="End-Date"
         onChange={handleEndDateChange}
         min={dateRange.startDate || ""}
-        disabled={!dateRange.startDate}
+        disabled={!dateRange.startDate} // Disable if start date not selected
         className="end-date-input"
       />
     </div>
