@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers } from "./store/slices/userSlice";
+import SearchForm from "./components/SearchForm";
+import DateRange from "./components/DateRange";
+import CampaignsList from "./components/CampaignsList";
+import AddCampaignForm from "./components/AddCampaignForm";
+import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+  const loading = useSelector((state) => state.users.loading);
+  const error = useSelector((state) => state.users.error);
+
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Campaigns Management System</h1>
+      {loading && <div className="loading">Loading Users...</div>}
+      {error && <div className="error">Error: {error}</div>}
+      <div>
+        <AddCampaignForm />
+      </div>
+      <div className="filters-container">
+        <DateRange />
+        <SearchForm />
+      </div>
+
+      <CampaignsList />
     </div>
   );
 }
