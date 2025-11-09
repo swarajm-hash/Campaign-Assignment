@@ -3,7 +3,7 @@ Adform Campaign Assignment
 
 ## Campaign Management System
 
-A React application built with Redux for managing campaigns with filtering and search capabilities.
+Have built this application using React  alongwith Redux for managing campaigns with filtering and search capabilities.
 
 ## Features
 
