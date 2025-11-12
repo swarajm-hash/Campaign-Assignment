@@ -222,22 +222,7 @@ const AddCampaignForm = () => {
 
           userId = newUserId;
         }
-      } else {
-        //generating userId above 10
-        const currentCampaigns = store.getState().campaigns.campaigns;
-        const existingUserIds = new Set(
-          currentCampaigns
-            .map((c) => c.userId)
-            .filter((id) => id !== null && id !== undefined && id !== 0)
-        );
-
-        let newUserId = 11;
-        while (existingUserIds.has(newUserId)) {
-          newUserId++;
-        }
-
-        userId = newUserId;
-      }
+      } 
     }
 
     const newCampaign = {
