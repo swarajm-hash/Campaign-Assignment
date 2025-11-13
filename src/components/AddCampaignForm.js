@@ -271,7 +271,7 @@ const AddCampaignForm = () => {
           {errors.endDate && <p className="error">{errors.endDate}</p>}
         </div>
         <div className="form-group">
-          <label htmlFor="budget">Budget</label>
+          <label htmlFor="budget">Budget *</label>
           <input
             type="number"
             id="budget"
