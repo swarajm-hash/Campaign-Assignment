@@ -46,12 +46,10 @@ export const ifCampaignActive = (startDate, endDate) => {
 };
 
 export const getUserName = (userId, users) => {
-  // Check if userId is null, undefined, or 0 (invalid)
   if (userId === null || userId === undefined || userId === 0) {
     return "Unknown User";
   }
 
-  // Check if users array is valid
   if (!users || !Array.isArray(users) || users.length === 0) {
     return "Unknown User";
   }
@@ -77,7 +75,6 @@ export const filterCampaigns = (campaigns, searchTerm) => {
 export const filterByDateRange = (campaigns, startDate, endDate) => {
   if (!startDate || !endDate) return campaigns;
 
-  // Parse filter dates (from input, format: YYYY-MM-DD)
   const start = new Date(startDate);
   if (isNaN(start.getTime())) return campaigns;
   start.setHours(0, 0, 0, 0);
@@ -91,7 +88,6 @@ export const filterByDateRange = (campaigns, startDate, endDate) => {
   return campaigns.filter((campaign) => {
     if (!campaign.startDate || !campaign.endDate) return false;
 
-    // Parse campaign dates (format: M/D/YYYY)
     const campaignStart = new Date(campaign.startDate);
     if (isNaN(campaignStart.getTime())) return false;
     campaignStart.setHours(0, 0, 0, 0);
@@ -100,16 +96,12 @@ export const filterByDateRange = (campaigns, startDate, endDate) => {
     if (isNaN(campaignEnd.getTime())) return false;
     campaignEnd.setHours(0, 0, 0, 0);
 
-    // If the endDate is before the start Date, the campaign should not show (as per requirements)
     if (campaignEnd < campaignStart) return false;
 
-    // If the campaign has a startDate that is contained in the range, it should show
     const startInRange = campaignStart >= start && campaignStart <= end;
 
-    // If the campaign has an endDate that is contained in the range, it should show
     const endInRange = campaignEnd >= start && campaignEnd <= end;
 
-    // Show campaign if either startDate or endDate is in range (as per requirements)
     return startInRange || endInRange;
   });
 };

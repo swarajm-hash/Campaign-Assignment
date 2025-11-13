@@ -63,7 +63,6 @@ const AddCampaignForm = () => {
         }
         break;
       case "userName":
-        // User name is optional, no validation needed
         delete newErrors.userName;
         break;
       default:
@@ -76,7 +75,6 @@ const AddCampaignForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Handlinf start date change - clear end date if new start date is after current end date
     if (name === "startDate") {
       if (formData.endDate && new Date(value) > new Date(formData.endDate)) {
         setFormData((prev) => ({
@@ -84,7 +82,6 @@ const AddCampaignForm = () => {
           [name]: value,
           endDate: "",
         }));
-        // Clear end date error if it exists and it will throw an error if start date is after end date
         setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors.endDate;
@@ -97,7 +94,6 @@ const AddCampaignForm = () => {
         }));
       }
     }
-    // Handle end date change - validate against start date
     else if (name === "endDate") {
       if (!formData.startDate) {
         alert("Select start date first");
@@ -114,7 +110,6 @@ const AddCampaignForm = () => {
         [name]: value,
       }));
     }
-    // Handle other fields (including userName)
     else {
       setFormData((prev) => ({
         ...prev,
@@ -127,8 +122,6 @@ const AddCampaignForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Validate all required fields
     const validationErrors = {};
     Object.keys(formData).forEach((key) => {
       if (key !== "userName") {
@@ -181,40 +174,25 @@ const AddCampaignForm = () => {
       return;
     }
 
-    // Auto-generate userId based on userName
     let userId = null;
 
     if (formData.userName && formData.userName.trim()) {
       const trimmedUserName = formData.userName.trim();
 
-      // Check if users are loaded and try to find matching user
       if (users && users.length > 0) {
-        // Try exact match first (case-insensitive)
         let user = users.find(
           (u) => u.name.toLowerCase() === trimmedUserName.toLowerCase()
         );
 
-      // handling the case for case mis-match or partial match
-        if (!user) {
-          user = users.find(
-            (u) =>
-              u.name.toLowerCase().includes(trimmedUserName.toLowerCase()) ||
-              trimmedUserName.toLowerCase().includes(u.name.toLowerCase())
-          );
-        }
-
         if (user) {
           userId = user.id;
         } else {
-          // searching for user. if not found generating userId > 10
           const currentCampaigns = store.getState().campaigns.campaigns;
           const existingUserIds = new Set(
             currentCampaigns
               .map((c) => c.userId)
               .filter((id) => id !== null && id !== undefined && id !== 0)
           );
-
-          // Start from 11 (so that my userId is not undefined)
           let newUserId = 11;
           while (existingUserIds.has(newUserId)) {
             newUserId++;
@@ -222,7 +200,7 @@ const AddCampaignForm = () => {
 
           userId = newUserId;
         }
-      } 
+      }
     }
 
     const newCampaign = {

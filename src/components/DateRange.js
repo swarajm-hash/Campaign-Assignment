@@ -22,14 +22,6 @@ const DateRange = () => {
     const endDate = e.target.value;
     const startDate = dateRange.startDate;
 
-    // start date should be selected
-    if (!startDate) {
-      alert("Select start date first");
-      e.target.value = "";
-      return;
-    }
-
-    // end date should not be before start date
     if (endDate && new Date(endDate) < new Date(startDate)) {
       alert("Select start date first");
       e.target.value = "";
