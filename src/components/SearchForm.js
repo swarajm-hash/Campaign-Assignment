@@ -17,9 +17,6 @@ const SearchForm = () => {
         onChange={handleSearch}
         className="search-input"
       />
-      <button type="button" className="search-button">
-        🔍
-      </button>
     </div>
   );
 };

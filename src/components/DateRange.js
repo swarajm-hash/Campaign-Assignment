@@ -31,6 +31,10 @@ const DateRange = () => {
   };
 
   return (
+    <>
+    <div>
+      <label>Filter by Date Range:</label>
+    </div>
     <div className="date-range">
       <input
         type="date"
@@ -49,6 +53,7 @@ const DateRange = () => {
         className="end-date-input"
       />
     </div>
+    </>
   );
 };
 
