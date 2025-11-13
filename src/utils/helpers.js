@@ -76,11 +76,9 @@ export const filterByDateRange = (campaigns, startDate, endDate) => {
   if (!startDate || !endDate) return campaigns;
 
   const start = new Date(startDate);
-  if (isNaN(start.getTime())) return campaigns;
   start.setHours(0, 0, 0, 0);
 
   const end = new Date(endDate);
-  if (isNaN(end.getTime())) return campaigns;
   end.setHours(0, 0, 0, 0);
 
   if (end < start) return [];
