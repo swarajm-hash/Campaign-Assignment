@@ -16,6 +16,8 @@ const AddCampaignForm = () => {
     userName: "",
   });
 
+  let date = (new Date(Date.now()).toISOString().slice(0,10));
+
   const [errors, setErrors] = useState({});
 
   const validate = (name, value) => {
@@ -248,6 +250,7 @@ const AddCampaignForm = () => {
             id="startDate"
             name="startDate"
             value={formData.startDate}
+            min = {date || ""}
             onChange={handleChange}
             className={errors.startDate ? "form-control error" : "form-control"}
             required
